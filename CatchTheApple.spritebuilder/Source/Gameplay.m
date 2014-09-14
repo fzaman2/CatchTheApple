@@ -11,8 +11,8 @@
 
 static const CGFloat scrollSpeedRate = 250.f;
 static const CGFloat yAccelSpeed = 10.f;
-static const CGFloat firstApplePosition = 280.f;
-static const CGFloat distanceBetweenApples = 200.f;
+static const CGFloat firstApplePosition = 0.f;
+static const CGFloat distanceBetweenApples = 50.f;
 
 #define kRemoveAdsProductIdentifier @"com.bakwasgames.movethedot.removeads"
 #define SYSTEM_VERSION_LESS_THAN(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
@@ -94,13 +94,13 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     
     [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeDown];
 
-   UISwipeGestureRecognizer *swipRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedRight)];
-   swipRight.numberOfTouchesRequired = 1;
-   swipRight.direction = UISwipeGestureRecognizerDirectionRight;
+   UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedRight)];
+   swipeRight.numberOfTouchesRequired = 1;
+   swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
    
-   [[[CCDirector sharedDirector] view] addGestureRecognizer:swipRight];
+   [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRight];
 
-   UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedRight)];
+   UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedLeft)];
    swipeLeft.numberOfTouchesRequired = 1;
    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
    
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     
     [[[CCDirector sharedDirector] view] addGestureRecognizer:tapped];
     
-    _newHeroPosition = _hero.position.y;
+    _newHeroPosition = _hero.position.x;
     
     _highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"] ;
 
@@ -204,47 +204,15 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(void)screenWasSwipedUp
 {
-   if (_gameOver && _scrollSpeed != 0) {
-      _gameOver = FALSE;
-      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
-   }
-   else {
-    if(_hero.position.y < 340)
-    {
-    if(_hero.position.y == 90 ||
-       _hero.position.y == 170 ||
-       _hero.position.y == 250 ||
-       _hero.position.y == 330)
-//       _hero.position.y == 410)
-    {
-    _swiped = 1.0f;
-    _newHeroPosition = _hero.position.y;
-    }
-    }
-    }
 }
 
 -(void)screenWasSwipedDown
 {
-   if (_gameOver && _scrollSpeed != 0) {
-      _gameOver = FALSE;
-      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
-   }
-   else {
-    if(_hero.position.y == 90 ||
-       _hero.position.y == 170 ||
-       _hero.position.y == 250 ||
-       _hero.position.y == 330)
-//       _hero.position.y == 410)
-    {
-        _swiped = -1.0f;
-        _newHeroPosition = _hero.position.y;
-    }
-   }
 }
 
 -(void)screenTapped
 {
+   [self spawnNewApple];
     if (_gameOver && _scrollSpeed != 0) {
           _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
@@ -253,38 +221,77 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(void)screenWasSwipedRight
 {
+   if (_gameOver && _scrollSpeed != 0) {
+      _gameOver = FALSE;
+      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+   }
+   else {
+      if(_hero.position.x < 430)
+      {
+         if(_hero.position.x == 30 ||
+            _hero.position.x == 110 ||
+            _hero.position.x == 190 ||
+            _hero.position.x == 270 ||
+            _hero.position.x == 350)
+            //       _hero.position.y == 410)
+         {
+            _swiped = 1.0f;
+            _newHeroPosition = _hero.position.x;
+         }
+      }
+   }
+}
+
+-(void)screenWasSwipedLeft
+{
+   if (_gameOver && _scrollSpeed != 0) {
+      _gameOver = FALSE;
+      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+   }
+   else {
+      if(_hero.position.x == 30 ||
+         _hero.position.x == 110 ||
+         _hero.position.x == 190 ||
+         _hero.position.x == 270 ||
+         _hero.position.x == 350)
+         //       _hero.position.y == 410)
+      {
+         _swiped = -1.0f;
+         _newHeroPosition = _hero.position.x;
+      }
+   }
 }
 
 
 - (void)update:(CCTime)delta
 {
    if(!_gameOver){
-      if (_hero.position.y - _newHeroPosition >= 80.0)
+      if (_hero.position.x - _newHeroPosition >= 80.0)
       {
-         _hero.position = ccp(_hero.position.x + delta * _scrollSpeed, _hero.position.y);
+         _hero.position = ccp(_hero.position.x, _hero.position.y);
       }
-      else if(_hero.position.y - _newHeroPosition <= -80.0)
+      else if(_hero.position.x - _newHeroPosition <= -80.0)
       {
-         _hero.position = ccp(_hero.position.x + delta * _scrollSpeed, _hero.position.y);
+         _hero.position = ccp(_hero.position.x, _hero.position.y);
       }
       else
       {
-         _hero.position = ccp(_hero.position.x + delta * _scrollSpeed, _hero.position.y + _swiped * yAccelSpeed);
+         _hero.position = ccp(_hero.position.x + _swiped * yAccelSpeed, _hero.position.y);
       }
       //        CCLOG(@"%f",_hero.position.y);
-      _physicsNode.position = ccp(_physicsNode.position.x - (_scrollSpeed *delta), _physicsNode.position.y);
+//      _physicsNode.position = ccp(_physicsNode.position.x - (_scrollSpeed *delta), _physicsNode.position.y);
       // loop the ground
-      for (CCNode *ground in _grounds) {
-         // get the world position of the ground
-         CGPoint groundWorldPosition = [_physicsNode convertToWorldSpace:ground.position];
-         // get the screen position of the ground
-         CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
-         // if the left corner is one complete width off the screen, move it to the right
-         if (groundScreenPosition.x <= (-1 * ground.contentSize.width)) {
-            ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
-         }
-         
-      }
+//      for (CCNode *ground in _grounds) {
+//         // get the world position of the ground
+//         CGPoint groundWorldPosition = [_physicsNode convertToWorldSpace:ground.position];
+//         // get the screen position of the ground
+//         CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
+//         // if the left corner is one complete width off the screen, move it to the right
+//         if (groundScreenPosition.x <= (-1 * ground.contentSize.width)) {
+//            ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
+//         }
+//         
+//      }
 
       // Spawning new apples when old ones leave the screen
       
@@ -292,19 +299,22 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       for (CCNode *apple in _apples) {
          CGPoint appleWorldPosition = [_physicsNode convertToWorldSpace:apple.position];
          CGPoint appleScreenPosition = [self convertToNodeSpace:appleWorldPosition];
-         if (appleScreenPosition.x < -apple.contentSize.width) {
+//         NSLog(@"%s,%f","apple screen position y", appleScreenPosition.y);
+//         NSLog(@"%s,%f","apple height", apple.contentSize.height);
+         
+         if (appleScreenPosition.y > apple.contentSize.height) {
             if (!offScreenApples) {
                offScreenApples = [NSMutableArray array];
             }
             [offScreenApples addObject:apple];
          }
       }
-      for (CCNode *appleToRemove in offScreenApples) {
-         [appleToRemove removeFromParent];
-         [_apples removeObject:appleToRemove];
-         // for each removed apple, add a new one
-         [self spawnNewApple];
-      }
+//      for (CCNode *appleToRemove in offScreenApples) {
+//         [appleToRemove removeFromParent];
+//         [_apples removeObject:appleToRemove];
+//         // for each removed apple, add a new one
+//         [self spawnNewApple];
+//      }
    }
    else if (_gameOver && _scrollSpeed == 0)
    {
@@ -337,19 +347,37 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
         previousAppleXPosition = firstApplePosition;
     }
     Apple *apple = (Apple *)[CCBReader load:@"Apple"];
-    apple.position = ccp(previousAppleXPosition + distanceBetweenApples, 0);
-    [apple setupRandomPosition];
+//    apple.position = ccp(previousAppleXPosition + distanceBetweenApples,0);
+//   CCSprite *apple = [CCSprite spriteWithImageNamed:@"dot.png"];
+   // iphone width 320, ipad 384
+   // iphone 4S height 480, iphone 5s height 568, ipad height 512
+   // x range 20 - 300
+   // y range 200 - 350
+   int minY = 200;
+   int maxY = self.boundingBox.size.height - 100;
+   int randomY = (arc4random()%(maxY-minY))+minY;
+   NSLog(@"%s,%f","bound height",self.boundingBox.size.height);
+   int minX = apple.boundingBox.size.width;
+   int maxX = self.boundingBox.size.width - apple.boundingBox.size.width;
+   int randomX = (arc4random()%(maxX-minX))+minX;
+   apple.position = ccp(randomX,randomY);
+//    [apple setupRandomPosition];
     [_physicsNode addChild:apple];
     [_apples addObject:apple];
+   
    // fixing drawing order. drawing grounds in front of pipes.
    apple.zOrder = DrawingOrderPipes;
 }
 
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level {
-   [gameOverSound play];
-   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
-    [self gameOver];
+//   [gameOverSound play];
+//   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
+//    [self gameOver];
+   [level removeFromParent];
+   _points++;
+   _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [self spawnNewApple];
     return TRUE;
 }
 

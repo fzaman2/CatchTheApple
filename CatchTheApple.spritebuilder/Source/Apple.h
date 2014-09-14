@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Apportable. All rights reserved.
 //
 
-#import "CCNode.h"
+#import "CCSprite.h"
 
-@interface Apple : CCNode
-- (void)setupRandomPosition;
+@interface Apple : CCSprite
+//- (void)setupRandomPosition;
 @end
