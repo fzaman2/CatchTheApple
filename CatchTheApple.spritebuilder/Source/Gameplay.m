@@ -7,7 +7,6 @@
 //
 
 #import "Gameplay.h"
-#import "Apple.h"
 
 static const CGFloat scrollSpeedRate = 250.f;
 static const CGFloat yAccelSpeed = 10.f;
@@ -21,7 +20,7 @@ static const CGFloat distanceBetweenApples = 50.f;
 
 // fixing the drawing order. forcing the ground to be drawn above the pipes.
 typedef NS_ENUM(NSInteger, DrawingOrder) {
-   DrawingOrderPipes,
+   DrawingOrderApple,
    DrawingOrderGround,
    DrawingOrdeHero
 };
@@ -53,6 +52,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    CCButton *_removeAdsButton;
    UIActivityIndicatorView *spinner;
    NSString *osVersion;
+   CCNode *_apple1, *_apple2;
+   UITapGestureRecognizer *tapped;
+   UIPanGestureRecognizer  *panned;
+   BOOL  _firstTime;
 }
 
 // is called when CCB file has completed loading
@@ -65,10 +68,11 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     _grounds = @[_ground1];
    
     _apples = [NSMutableArray array];
-    [self spawnNewApple];
-    [self spawnNewApple];
-    [self spawnNewApple];
-   
+   [self spawnNewApple:_apple1];
+   [self spawnNewApple:_apple2];
+//    [self spawnNewApple];
+   _firstTime = TRUE;
+
     for (CCNode *ground in _grounds) {
         // set collision txpe
         ground.physicsBody.collisionType = @"level";
@@ -78,6 +82,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     _hero.physicsBody.collisionType = @"hero";
    _hero.zOrder = DrawingOrdeHero;
 
+//   _apple.physicsBody.collisionType = @"apple";
+//   _apple.zOrder = DrawingOrderApple;
    
     _scrollSpeed = scrollSpeedRate;
     
@@ -106,13 +112,20 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    
    [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeLeft];
    
-   UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTapped)];
+   tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTapped)];
     tapped.numberOfTapsRequired = 1;
     tapped.numberOfTouchesRequired = 1;
     tapped.cancelsTouchesInView = NO;
     
     [[[CCDirector sharedDirector] view] addGestureRecognizer:tapped];
     
+   panned = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
+   [panned setMinimumNumberOfTouches:1];
+   [panned setMaximumNumberOfTouches:1];
+//   panned.cancelsTouchesInView = NO;
+   
+   [[[CCDirector sharedDirector] view] addGestureRecognizer:panned];
+   
     _newHeroPosition = _hero.position.x;
     
     _highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"] ;
@@ -210,14 +223,31 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 {
 }
 
+-(void)panned
+{
+   
+}
+
 -(void)screenTapped
 {
-   [self spawnNewApple];
+//   [self spawnNewApple:_apple1];
     if (_gameOver && _scrollSpeed != 0) {
           _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
     }
 }
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   UITouch *touch = [touches anyObject];
+   
+   // Get the specific point that was touched
+   CGPoint point = [touch locationInView:[CCDirector sharedDirector].view];
+   NSLog(@"X location: %f", point.x);
+   NSLog(@"Y Location: %f",point.y);
+   
+}
+
 
 -(void)screenWasSwipedRight
 {
@@ -266,18 +296,30 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 - (void)update:(CCTime)delta
 {
    if(!_gameOver){
-      if (_hero.position.x - _newHeroPosition >= 80.0)
+      CGPoint point = [panned locationInView:[CCDirector sharedDirector].view];
+//      NSLog(@"%f %f",point.x, point.y);
+//      if (_hero.position.x - _newHeroPosition >= 80.0)
+//      {
+//         _hero.position = ccp(_hero.position.x, _hero.position.y);
+//      }
+//      else if(_hero.position.x - _newHeroPosition <= -80.0)
+//      {
+//         _hero.position = ccp(_hero.position.x, _hero.position.y);
+//      }
+//      else
+//      {
+//         _hero.position = ccp(_hero.position.x + _swiped * yAccelSpeed, _hero.position.y);
+//      }
+      if(point.x != 0)
       {
-         _hero.position = ccp(_hero.position.x, _hero.position.y);
-      }
-      else if(_hero.position.x - _newHeroPosition <= -80.0)
-      {
-         _hero.position = ccp(_hero.position.x, _hero.position.y);
+      _hero.position = ccp(point.x, _hero.position.y);
       }
       else
       {
-         _hero.position = ccp(_hero.position.x + _swiped * yAccelSpeed, _hero.position.y);
+      _hero.position = ccp(_hero.position.x, _hero.position.y);
       }
+      _apple1.position = ccp(_apple1.position.x, _apple1.position.y - 2.0f);
+      _apple2.position = ccp(_apple2.position.x, _apple2.position.y - 2.0f);
       //        CCLOG(@"%f",_hero.position.y);
 //      _physicsNode.position = ccp(_physicsNode.position.x - (_scrollSpeed *delta), _physicsNode.position.y);
       // loop the ground
@@ -294,21 +336,24 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //      }
 
       // Spawning new apples when old ones leave the screen
-      
-      NSMutableArray *offScreenApples = nil;
-      for (CCNode *apple in _apples) {
-         CGPoint appleWorldPosition = [_physicsNode convertToWorldSpace:apple.position];
-         CGPoint appleScreenPosition = [self convertToNodeSpace:appleWorldPosition];
+//      NSMutableArray *offScreenApples = nil;
+//      for (CCSprite *apple in _apples) {
+//         CGPoint appleWorldPosition = [_physicsNode convertToWorldSpace:apple.position];
+//         CGPoint appleScreenPosition = [self convertToNodeSpace:appleWorldPosition];
 //         NSLog(@"%s,%f","apple screen position y", appleScreenPosition.y);
 //         NSLog(@"%s,%f","apple height", apple.contentSize.height);
+//         appleScreenPosition.y = appleScreenPosition.y + delta/4;
+//         apple.position = ccp(apple.position.x, appleScreenPosition.y);
+//         apple.position = ccp(apple.position.x, apple.position.y + delta/4);
+//         [apple setPosition:ccp(apple.position.x, apple.position.y + delta/4)];
          
-         if (appleScreenPosition.y > apple.contentSize.height) {
-            if (!offScreenApples) {
-               offScreenApples = [NSMutableArray array];
-            }
-            [offScreenApples addObject:apple];
-         }
-      }
+//         if (appleScreenPosition.y > apple.contentSize.height) {
+//            if (!offScreenApples) {
+//               offScreenApples = [NSMutableArray array];
+//            }
+//            [offScreenApples addObject:apple];
+//         }
+//      }
 //      for (CCNode *appleToRemove in offScreenApples) {
 //         [appleToRemove removeFromParent];
 //         [_apples removeObject:appleToRemove];
@@ -339,46 +384,64 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     [hero removeFromParent];
 }
 
-- (void)spawnNewApple {
-    CCNode *previousApple = [_apples lastObject];
-    CGFloat previousAppleXPosition = previousApple.position.x;
-    if (!previousApple) {
-        // this is the first apple
-        previousAppleXPosition = firstApplePosition;
-    }
-    Apple *apple = (Apple *)[CCBReader load:@"Apple"];
+- (void)spawnNewApple:(CCNode *)_apple {
+//    CCNode *previousApple = [_apples lastObject];
+//    CGFloat previousAppleXPosition = previousApple.position.x;
+//    if (!previousApple) {
+//        // this is the first apple
+//        previousAppleXPosition = firstApplePosition;
+//    }
+//    _apple = (Apple *)[CCBReader load:@"Apple"];
 //    apple.position = ccp(previousAppleXPosition + distanceBetweenApples,0);
 //   CCSprite *apple = [CCSprite spriteWithImageNamed:@"dot.png"];
    // iphone width 320, ipad 384
    // iphone 4S height 480, iphone 5s height 568, ipad height 512
    // x range 20 - 300
    // y range 200 - 350
+   if(_firstTime)
+   {
    int minY = 200;
    int maxY = self.boundingBox.size.height - 100;
    int randomY = (arc4random()%(maxY-minY))+minY;
    NSLog(@"%s,%f","bound height",self.boundingBox.size.height);
-   int minX = apple.boundingBox.size.width;
-   int maxX = self.boundingBox.size.width - apple.boundingBox.size.width;
+   int minX = _apple.boundingBox.size.width;
+   int maxX = self.boundingBox.size.width - _apple.boundingBox.size.width;
    int randomX = (arc4random()%(maxX-minX))+minX;
-   apple.position = ccp(randomX,randomY);
+   _apple.position = ccp(randomX,randomY);
+   }
+   else{
+      _apple.position = ccp(160, 270);
+   }
+   _apple.visible = YES;
 //    [apple setupRandomPosition];
-    [_physicsNode addChild:apple];
-    [_apples addObject:apple];
-   
+//    [_physicsNode addChild:_apple];
+    [_apples addObject:_apple];
+   _apple.physicsBody.collisionType = @"apple";
+
    // fixing drawing order. drawing grounds in front of pipes.
-   apple.zOrder = DrawingOrderPipes;
+   _apple.zOrder = DrawingOrderApple;
 }
 
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple:(CCNode *)apple {
 //   [gameOverSound play];
 //   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
 //    [self gameOver];
-   [level removeFromParent];
+//   [apple removeFromParent];
+   apple.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple];
+   [self spawnNewApple:apple];
     return TRUE;
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple:(CCNode *)apple level:(CCNode *)level {
+   //   [gameOverSound play];
+   //   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   //    [self gameOver];
+   apple.visible = NO;
+   [self spawnNewApple:apple];
+   return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero goal:(CCNode *)goal {

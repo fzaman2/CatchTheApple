@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A0D911319A58F6000B930EA /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D911219A58F6000B930EA /* Gameplay.m */; };
-		3A0D911619A58FD200B930EA /* Apple.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D911519A58FD200B930EA /* Apple.m */; };
 		3A7C3BE719C63A0C00774EF3 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7C3BE619C63A0C00774EF3 /* dot.png */; };
 		3AB72AB519A59783004CBD9E /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AB72AB419A59783004CBD9E /* click.wav */; };
 		3AB72AB919A6AB89004CBD9E /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB72AB819A6AB89004CBD9E /* Goal.m */; };
@@ -74,8 +73,6 @@
 /* Begin PBXFileReference section */
 		3A0D911119A58F6000B930EA /* Gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gameplay.h; path = Source/Gameplay.h; sourceTree = "<group>"; };
 		3A0D911219A58F6000B930EA /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
-		3A0D911419A58FD200B930EA /* Apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Apple.h; path = Source/Apple.h; sourceTree = "<group>"; };
-		3A0D911519A58FD200B930EA /* Apple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Apple.m; path = Source/Apple.m; sourceTree = "<group>"; };
 		3A7C3BE619C63A0C00774EF3 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot.png; path = "Packages/SpriteBuilder Resources.sbpack/Items/resources-auto/dot.png"; sourceTree = SOURCE_ROOT; };
 		3AB72AB419A59783004CBD9E /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		3AB72AB719A6AB89004CBD9E /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Goal.h; path = Source/Goal.h; sourceTree = "<group>"; };
@@ -274,8 +271,6 @@
 				B737893E1807617C0076A88C /* AppDelegate.m */,
 				3A0D911119A58F6000B930EA /* Gameplay.h */,
 				3A0D911219A58F6000B930EA /* Gameplay.m */,
-				3A0D911419A58FD200B930EA /* Apple.h */,
-				3A0D911519A58FD200B930EA /* Apple.m */,
 				3AB72AB719A6AB89004CBD9E /* Goal.h */,
 				3AB72AB819A6AB89004CBD9E /* Goal.m */,
 			);
@@ -511,7 +506,6 @@
 				3AB72AB919A6AB89004CBD9E /* Goal.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				3A0D911319A58F6000B930EA /* Gameplay.m in Sources */,
-				3A0D911619A58FD200B930EA /* Apple.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
