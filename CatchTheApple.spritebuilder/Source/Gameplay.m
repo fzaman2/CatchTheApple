@@ -54,8 +54,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    CCButton *_removeAdsButton;
    UIActivityIndicatorView *spinner;
    NSString *osVersion;
-   CCNode *_apple1, *_apple2, *_apple3, *_apple4;
-   CCNode *_apple5, *_apple6, *_apple7, *_apple8;
+   CCSprite *_apple1, *_apple2, *_apple3, *_apple4;
+   CCSprite *_apple5, *_apple6, *_apple7, *_apple8;
+   BOOL _apple1Dropped, _apple2Dropped, _apple3Dropped, _apple4Dropped;
+   BOOL _apple5Dropped, _apple6Dropped, _apple7Dropped, _apple8Dropped;
    UITapGestureRecognizer *tapped;
    UIPanGestureRecognizer  *panned;
 }
@@ -70,14 +72,22 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     _grounds = @[_ground1];
    
     _apples = [NSMutableArray array];
-   [self spawnNewApple:_apple1 appleNumber:1];
-   [self spawnNewApple:_apple2 appleNumber:2];
-   [self spawnNewApple:_apple3 appleNumber:3];
-   [self spawnNewApple:_apple4 appleNumber:4];
-   [self spawnNewApple:_apple5 appleNumber:5];
-   [self spawnNewApple:_apple6 appleNumber:6];
-   [self spawnNewApple:_apple7 appleNumber:7];
-   [self spawnNewApple:_apple8 appleNumber:8];
+   int min = 0;
+   int max = 7;
+   int random = (arc4random()%(max-min))+min;
+   
+   [self spawnNewApple:_apple1 appleNumber:random + 1];
+   if(random + 2 > 8)
+   {
+      
+   }
+   [self spawnNewApple:_apple2 appleNumber:random + 2];
+   [self spawnNewApple:_apple3 appleNumber:random + 3];
+   [self spawnNewApple:_apple4 appleNumber:random + 4];
+   [self spawnNewApple:_apple5 appleNumber:random + 5];
+   [self spawnNewApple:_apple6 appleNumber:random + 6];
+   [self spawnNewApple:_apple7 appleNumber:random + 7];
+   [self spawnNewApple:_apple8 appleNumber:random + 8];
 //    [self spawnNewApple];
    _apple1.physicsBody.collisionType = @"apple1";
    _apple2.physicsBody.collisionType = @"apple2";
@@ -341,35 +351,35 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       {
       _hero.position = ccp(_hero.position.x, 0.25);
       }
-      if(_apple1Time > 1)
+      if(_apple1Time > 1 && !_apple1Dropped)
       {
          _apple1.position = ccp(_apple1.position.x, _apple1.position.y - 0.01f);
       }
-      if(_apple2Time > 2)
+      if(_apple2Time > 2 && !_apple2Dropped)
       {
       _apple2.position = ccp(_apple2.position.x, _apple2.position.y - 0.01f);
       }
-      if(_apple3Time > 3)
+      if(_apple3Time > 3 && !_apple3Dropped)
       {
          _apple3.position = ccp(_apple3.position.x, _apple3.position.y - 0.01f);
       }
-      if(_apple4Time > 4)
+      if(_apple4Time > 4 && !_apple4Dropped)
       {
          _apple4.position = ccp(_apple4.position.x, _apple4.position.y - 0.01f);
       }
-      if(_apple5Time > 5)
+      if(_apple5Time > 5 && !_apple5Dropped)
       {
          _apple5.position = ccp(_apple5.position.x, _apple5.position.y - 0.01f);
       }
-      if(_apple6Time > 6)
+      if(_apple6Time > 6 && !_apple6Dropped)
       {
          _apple6.position = ccp(_apple6.position.x, _apple6.position.y - 0.01f);
       }
-      if(_apple7Time > 7)
+      if(_apple7Time > 7 && !_apple7Dropped)
       {
          _apple7.position = ccp(_apple7.position.x, _apple7.position.y - 0.01f);
       }
-      if(_apple8Time > 8)
+      if(_apple8Time > 8 && !_apple8Dropped)
       {
          _apple8.position = ccp(_apple8.position.x, _apple8.position.y - 0.01f);
       }
@@ -497,6 +507,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //    [self gameOver];
 //   [apple removeFromParent];
    _apple1Time = 0;
+   _apple1Dropped = TRUE;
+   _apple4Dropped = FALSE;
    apple1.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -506,6 +518,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple2:(CCNode *)apple2 {
    _apple2Time = 0;
+   _apple2Dropped = TRUE;
+   _apple5Dropped = FALSE;
    apple2.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -515,6 +529,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple3:(CCNode *)apple3 {
    _apple3Time = 0;
+   _apple3Dropped = TRUE;
+   _apple6Dropped = FALSE;
    apple3.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -524,6 +540,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple4:(CCNode *)apple4 {
    _apple4Time = 0;
+   _apple4Dropped = TRUE;
+   _apple7Dropped = FALSE;
    apple4.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -533,6 +551,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple5:(CCNode *)apple5 {
    _apple5Time = 0;
+   _apple5Dropped = TRUE;
+   _apple8Dropped = FALSE;
    apple5.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -542,6 +562,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple6:(CCNode *)apple6 {
    _apple6Time = 0;
+   _apple6Dropped = TRUE;
+   _apple1Dropped = FALSE;
    apple6.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -551,6 +573,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(CCNode *)apple7 {
    _apple7Time = 0;
+   _apple7Dropped = TRUE;
+   _apple2Dropped = FALSE;
    apple7.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -560,6 +584,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(CCNode *)apple8 {
    _apple8Time = 0;
+   _apple8Dropped = TRUE;
+   _apple3Dropped = FALSE;
    apple8.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -568,61 +594,63 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple1:(CCNode *)apple1 level:(CCNode *)level {
-   //   [gameOverSound play];
-   //   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
-   //    [self gameOver];
-      _apple1Time = 0;
-   apple1.visible = NO;
-   [self spawnNewApple:apple1 appleNumber:1];
+      [gameOverSound play];
+      _apple1.effect = [CCEffectPixellate effectWithBlockSize: 4];
+       [self gameOver];
+//      _apple1Time = 0;
+//   _apple1Dropped = TRUE;
+//   _apple4Dropped = FALSE;
+//   apple1.visible = NO;
+//   [self spawnNewApple:apple1 appleNumber:1];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple2:(CCNode *)apple2 level:(CCNode *)level {
-   _apple2Time = 0;
-   apple2.visible = NO;
-   [self spawnNewApple:apple2 appleNumber:2];
+   [gameOverSound play];
+   _apple2.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple3:(CCNode *)apple3 level:(CCNode *)level {
-   _apple3Time = 0;
-   apple3.visible = NO;
-   [self spawnNewApple:apple3 appleNumber:3];
+   [gameOverSound play];
+   _apple3.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple4:(CCNode *)apple4 level:(CCNode *)level {
-   _apple4Time = 0;
-   apple4.visible = NO;
-   [self spawnNewApple:apple4 appleNumber:4];
+   [gameOverSound play];
+   _apple4.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple5:(CCNode *)apple5 level:(CCNode *)level {
-   _apple5Time = 0;
-   apple5.visible = NO;
-   [self spawnNewApple:apple5 appleNumber:5];
+   [gameOverSound play];
+   _apple5.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple6:(CCNode *)apple6 level:(CCNode *)level {
-   _apple6Time = 0;
-   apple6.visible = NO;
-   [self spawnNewApple:apple6 appleNumber:6];
+   [gameOverSound play];
+   _apple6.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple7:(CCNode *)apple7 level:(CCNode *)level {
-   _apple7Time = 0;
-   apple7.visible = NO;
-   [self spawnNewApple:apple7 appleNumber:7];
+   [gameOverSound play];
+   _apple7.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple8:(CCNode *)apple8 level:(CCNode *)level {
-   _apple8Time = 0;
-   apple8.visible = NO;
-   [self spawnNewApple:apple8 appleNumber:8];
+   [gameOverSound play];
+   _apple8.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   [self gameOver];
    return TRUE;
 }
 
@@ -730,7 +758,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    [clickSound play];
    [spinner  stopAnimating];
    NSString *message = [NSString stringWithFormat:@"Hey!!! I scored %ld", (long)_points];
-   message = [message stringByAppendingString:@" points in Move The Dot."];
+   message = [message stringByAppendingString:@" points in Catch The Apple."];
    message = [message stringByAppendingString:@" Check it out https://itunes.apple.com/app/id914300555"];
    
    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObjects:message,_image, nil] applicationActivities:nil];
