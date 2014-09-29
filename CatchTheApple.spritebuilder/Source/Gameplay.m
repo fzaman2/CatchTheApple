@@ -58,6 +58,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    CCSprite *_apple5, *_apple6, *_apple7, *_apple8;
    BOOL _apple1Dropped, _apple2Dropped, _apple3Dropped, _apple4Dropped;
    BOOL _apple5Dropped, _apple6Dropped, _apple7Dropped, _apple8Dropped;
+   NSInteger   _apple1Number,_apple2Number,_apple3Number,_apple4Number;
+   NSInteger   _apple5Number,_apple6Number,_apple7Number,_apple8Number;
    UITapGestureRecognizer *tapped;
    UIPanGestureRecognizer  *panned;
 }
@@ -76,18 +78,170 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    int max = 7;
    int random = (arc4random()%(max-min))+min;
    
-   [self spawnNewApple:_apple1 appleNumber:random + 1];
-   if(random + 2 > 8)
-   {
-      
+   switch (random) {
+      case 0:
+      {
+         [self spawnNewApple:_apple1 appleNumber:1];
+         [self spawnNewApple:_apple2 appleNumber:2];
+         [self spawnNewApple:_apple3 appleNumber:3];
+         [self spawnNewApple:_apple4 appleNumber:4];
+         [self spawnNewApple:_apple5 appleNumber:5];
+         [self spawnNewApple:_apple6 appleNumber:6];
+         [self spawnNewApple:_apple7 appleNumber:7];
+         [self spawnNewApple:_apple8 appleNumber:8];
+         _apple1Number = 1;
+         _apple2Number = 2;
+         _apple3Number = 3;
+         _apple4Number = 4;
+         _apple5Number = 5;
+         _apple6Number = 6;
+         _apple7Number = 7;
+         _apple8Number = 8;
+         break;
+      }
+      case 1:
+      {
+         [self spawnNewApple:_apple1 appleNumber:2];
+         [self spawnNewApple:_apple2 appleNumber:3];
+         [self spawnNewApple:_apple3 appleNumber:4];
+         [self spawnNewApple:_apple4 appleNumber:5];
+         [self spawnNewApple:_apple5 appleNumber:6];
+         [self spawnNewApple:_apple6 appleNumber:7];
+         [self spawnNewApple:_apple7 appleNumber:8];
+         [self spawnNewApple:_apple8 appleNumber:1];
+         _apple1Number = 2;
+         _apple2Number = 3;
+         _apple3Number = 4;
+         _apple4Number = 5;
+         _apple5Number = 6;
+         _apple6Number = 7;
+         _apple7Number = 8;
+         _apple8Number = 1;
+         break;
+      }
+      case 2:
+      {
+         [self spawnNewApple:_apple1 appleNumber:3];
+         [self spawnNewApple:_apple2 appleNumber:4];
+         [self spawnNewApple:_apple3 appleNumber:5];
+         [self spawnNewApple:_apple4 appleNumber:6];
+         [self spawnNewApple:_apple5 appleNumber:7];
+         [self spawnNewApple:_apple6 appleNumber:8];
+         [self spawnNewApple:_apple7 appleNumber:1];
+         [self spawnNewApple:_apple8 appleNumber:2];
+         _apple1Number = 3;
+         _apple2Number = 4;
+         _apple3Number = 5;
+         _apple4Number = 6;
+         _apple5Number = 7;
+         _apple6Number = 8;
+         _apple7Number = 1;
+         _apple8Number = 2;
+         break;
+      }
+      case 3:
+      {
+         [self spawnNewApple:_apple1 appleNumber:4];
+         [self spawnNewApple:_apple2 appleNumber:5];
+         [self spawnNewApple:_apple3 appleNumber:6];
+         [self spawnNewApple:_apple4 appleNumber:7];
+         [self spawnNewApple:_apple5 appleNumber:8];
+         [self spawnNewApple:_apple6 appleNumber:1];
+         [self spawnNewApple:_apple7 appleNumber:2];
+         [self spawnNewApple:_apple8 appleNumber:3];
+         _apple1Number = 4;
+         _apple2Number = 5;
+         _apple3Number = 6;
+         _apple4Number = 7;
+         _apple5Number = 8;
+         _apple6Number = 1;
+         _apple7Number = 2;
+         _apple8Number = 3;
+         break;
+      }
+      case 4:
+      {
+         [self spawnNewApple:_apple1 appleNumber:5];
+         [self spawnNewApple:_apple2 appleNumber:6];
+         [self spawnNewApple:_apple3 appleNumber:7];
+         [self spawnNewApple:_apple4 appleNumber:8];
+         [self spawnNewApple:_apple5 appleNumber:1];
+         [self spawnNewApple:_apple6 appleNumber:2];
+         [self spawnNewApple:_apple7 appleNumber:3];
+         [self spawnNewApple:_apple8 appleNumber:4];
+         _apple1Number = 5;
+         _apple2Number = 6;
+         _apple3Number = 7;
+         _apple4Number = 8;
+         _apple5Number = 1;
+         _apple6Number = 2;
+         _apple7Number = 3;
+         _apple8Number = 4;
+         break;
+      }
+      case 5:
+      {
+         [self spawnNewApple:_apple1 appleNumber:6];
+         [self spawnNewApple:_apple2 appleNumber:7];
+         [self spawnNewApple:_apple3 appleNumber:8];
+         [self spawnNewApple:_apple4 appleNumber:1];
+         [self spawnNewApple:_apple5 appleNumber:2];
+         [self spawnNewApple:_apple6 appleNumber:3];
+         [self spawnNewApple:_apple7 appleNumber:4];
+         [self spawnNewApple:_apple8 appleNumber:5];
+         _apple1Number = 6;
+         _apple2Number = 7;
+         _apple3Number = 8;
+         _apple4Number = 1;
+         _apple5Number = 2;
+         _apple6Number = 3;
+         _apple7Number = 4;
+         _apple8Number = 5;
+         break;
+      }
+      case 6:
+      {
+         [self spawnNewApple:_apple1 appleNumber:7];
+         [self spawnNewApple:_apple2 appleNumber:8];
+         [self spawnNewApple:_apple3 appleNumber:1];
+         [self spawnNewApple:_apple4 appleNumber:2];
+         [self spawnNewApple:_apple5 appleNumber:3];
+         [self spawnNewApple:_apple6 appleNumber:4];
+         [self spawnNewApple:_apple7 appleNumber:5];
+         [self spawnNewApple:_apple8 appleNumber:6];
+         _apple1Number = 7;
+         _apple2Number = 8;
+         _apple3Number = 1;
+         _apple4Number = 2;
+         _apple5Number = 3;
+         _apple6Number = 4;
+         _apple7Number = 5;
+         _apple8Number = 6;
+         break;
+      }
+      case 7:
+      {
+         [self spawnNewApple:_apple1 appleNumber:8];
+         [self spawnNewApple:_apple2 appleNumber:1];
+         [self spawnNewApple:_apple3 appleNumber:2];
+         [self spawnNewApple:_apple4 appleNumber:3];
+         [self spawnNewApple:_apple5 appleNumber:4];
+         [self spawnNewApple:_apple6 appleNumber:5];
+         [self spawnNewApple:_apple7 appleNumber:6];
+         [self spawnNewApple:_apple8 appleNumber:7];
+         _apple1Number = 8;
+         _apple2Number = 1;
+         _apple3Number = 2;
+         _apple4Number = 3;
+         _apple5Number = 4;
+         _apple6Number = 5;
+         _apple7Number = 6;
+         _apple8Number = 7;
+         break;
+      }
+      default:
+         break;
    }
-   [self spawnNewApple:_apple2 appleNumber:random + 2];
-   [self spawnNewApple:_apple3 appleNumber:random + 3];
-   [self spawnNewApple:_apple4 appleNumber:random + 4];
-   [self spawnNewApple:_apple5 appleNumber:random + 5];
-   [self spawnNewApple:_apple6 appleNumber:random + 6];
-   [self spawnNewApple:_apple7 appleNumber:random + 7];
-   [self spawnNewApple:_apple8 appleNumber:random + 8];
 //    [self spawnNewApple];
    _apple1.physicsBody.collisionType = @"apple1";
    _apple2.physicsBody.collisionType = @"apple2";
@@ -512,7 +666,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple1.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple1 appleNumber:1];
+   [self spawnNewApple:apple1 appleNumber:_apple1Number];
     return TRUE;
 }
 
@@ -523,7 +677,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple2.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple2 appleNumber:2];
+   [self spawnNewApple:apple2 appleNumber:_apple2Number];
    return TRUE;
 }
 
@@ -534,7 +688,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple3.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple3 appleNumber:3];
+   [self spawnNewApple:apple3 appleNumber:_apple3Number];
    return TRUE;
 }
 
@@ -545,7 +699,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple4.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple4 appleNumber:4];
+   [self spawnNewApple:apple4 appleNumber:_apple4Number];
    return TRUE;
 }
 
@@ -556,7 +710,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple5.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple5 appleNumber:5];
+   [self spawnNewApple:apple5 appleNumber:_apple5Number];
    return TRUE;
 }
 
@@ -567,7 +721,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple6.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple6 appleNumber:6];
+   [self spawnNewApple:apple6 appleNumber:_apple6Number];
    return TRUE;
 }
 
@@ -578,7 +732,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple7.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple7 appleNumber:7];
+   [self spawnNewApple:apple7 appleNumber:_apple7Number];
    return TRUE;
 }
 
@@ -589,7 +743,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple8.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [self spawnNewApple:apple8 appleNumber:8];
+   [self spawnNewApple:apple8 appleNumber:_apple8Number];
    return TRUE;
 }
 
@@ -857,7 +1011,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 {
    // If the interstitial managed to load, then we'll present it now.
    if (interstitial.isReady) {
-      [interstitial presentFromRootViewController:[CCDirector sharedDirector]];
+//      [interstitial presentFromRootViewController:[CCDirector sharedDirector]];
    }
    _bannerView.hidden = YES;
    [self replaceSceneWithTransition];
