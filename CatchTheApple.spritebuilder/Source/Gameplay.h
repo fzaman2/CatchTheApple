@@ -10,11 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <GameKit/GameKit.h>
 #import "GADInterstitial.h"
-#import "GADBannerView.h"
 #import "StoreKit/StoreKit.h"
 
 
-@interface Gameplay : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate, AVAudioPlayerDelegate,GKGameCenterControllerDelegate,GADBannerViewDelegate,GADInterstitialDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@interface Gameplay : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate, AVAudioPlayerDelegate,GKGameCenterControllerDelegate,GADInterstitialDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 {
 }
 

@@ -49,7 +49,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     CCLabelTTF *_scoreValue;
    AVAudioPlayer *clickSound, *gameOverSound;
    UIImage *_image;
-   GADBannerView *_bannerView;
    GADInterstitial *interstitial;
    CCButton *_removeAdsButton;
    UIActivityIndicatorView *spinner;
@@ -74,6 +73,9 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     _grounds = @[_ground1];
    
     _apples = [NSMutableArray array];
+   
+   _apple1.effect = [CCEffectHue effectWithHue: 120.0];
+
    int min = 0;
    int max = 7;
    int random = (arc4random()%(max-min))+min;
@@ -316,23 +318,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    {
    [self cycleInterstitial]; // Prepare our interstitial for after the game so that we can be certain its ready to present
       
-   // Initialize the banner at the bottom of the screen.
-   CGPoint origin = CGPointMake(0.0,
-                                [CCDirector sharedDirector].view.frame.size.height -
-                                CGSizeFromGADAdSize(kGADAdSizeSmartBannerPortrait).height);
-   _bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait origin:origin];
-   
-   // Specify the ad unit ID.
-   _bannerView.adUnitID = @"ca-app-pub-3129568560891761/2856875137";
-   
-   // Let the runtime know which UIViewController to restore after taking
-   // the user wherever the ad goes and add it to the view hierarchy.
-   _bannerView.rootViewController = [CCDirector sharedDirector];
-   [[[CCDirector sharedDirector]view]addSubview:_bannerView];
-   // Initiate a generic request to load it with an ad.
-   [_bannerView loadRequest:[GADRequest request]];
-   _bannerView.delegate = self;
-   _bannerView.hidden = NO;
    }
 
    // The AV Audio Player needs a URL to the file that will be played to be specified.
@@ -390,7 +375,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    else{
       _removeAdsButton.visible = FALSE;
       _removeAdsButton.enabled = FALSE;
-      _bannerView.hidden = TRUE;
    }
 }
 
@@ -499,11 +483,11 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //      }
       if(point.x != 0)
       {
-      _hero.position = ccp(point.x, 0.25);
+      _hero.position = ccp(point.x, 0.12);
       }
       else
       {
-      _hero.position = ccp(_hero.position.x, 0.25);
+      _hero.position = ccp(_hero.position.x, 0.12);
       }
       if(_apple1Time > 1 && !_apple1Dropped)
       {
@@ -601,7 +585,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     [hero removeFromParent];
 }
 
-- (void)spawnNewApple:(CCNode *)_apple appleNumber:(NSInteger)_counter{
+- (void)spawnNewApple:(CCSprite *)_apple appleNumber:(NSInteger)_counter{
 //    CCNode *previousApple = [_apples lastObject];
 //    CGFloat previousAppleXPosition = previousApple.position.x;
 //    if (!previousApple) {
@@ -615,6 +599,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    // iphone 4S height 480, iphone 5s height 568, ipad height 512
    // x range 20 - 300
    // y range 200 - 350
+   int min = -45;
+   int max = 45;
+   int random = (arc4random()%(max-min))+min;
+   [_apple runAction:[CCActionRotateTo actionWithDuration:0 angle:random]];
 
    switch (_counter-1) {
       case 0:
@@ -655,7 +643,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 }
 
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple1:(CCNode *)apple1 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple1:(CCSprite *)apple1 {
 //   [gameOverSound play];
 //   _hero.effect = [CCEffectPixellate effectWithBlockSize: 4];
 //    [self gameOver];
@@ -670,7 +658,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple2:(CCNode *)apple2 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple2:(CCSprite *)apple2 {
    _apple2Time = 0;
    _apple2Dropped = TRUE;
    _apple5Dropped = FALSE;
@@ -681,7 +669,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple3:(CCNode *)apple3 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple3:(CCSprite *)apple3 {
    _apple3Time = 0;
    _apple3Dropped = TRUE;
    _apple6Dropped = FALSE;
@@ -692,7 +680,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple4:(CCNode *)apple4 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple4:(CCSprite *)apple4 {
    _apple4Time = 0;
    _apple4Dropped = TRUE;
    _apple7Dropped = FALSE;
@@ -703,7 +691,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple5:(CCNode *)apple5 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple5:(CCSprite *)apple5 {
    _apple5Time = 0;
    _apple5Dropped = TRUE;
    _apple8Dropped = FALSE;
@@ -714,7 +702,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple6:(CCNode *)apple6 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple6:(CCSprite *)apple6 {
    _apple6Time = 0;
    _apple6Dropped = TRUE;
    _apple1Dropped = FALSE;
@@ -725,7 +713,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(CCNode *)apple7 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(CCSprite *)apple7 {
    _apple7Time = 0;
    _apple7Dropped = TRUE;
    _apple2Dropped = FALSE;
@@ -736,7 +724,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(CCNode *)apple8 {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(CCSprite *)apple8 {
    _apple8Time = 0;
    _apple8Dropped = TRUE;
    _apple3Dropped = FALSE;
@@ -749,7 +737,9 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple1:(CCNode *)apple1 level:(CCNode *)level {
       [gameOverSound play];
-      _apple1.effect = [CCEffectPixellate effectWithBlockSize: 4];
+//      _apple1.effect = [CCEffectPixellate effectWithBlockSize: 4];
+   _apple1.effect = [CCEffectStack effects: [CCEffectPixellate effectWithBlockSize: 4],[CCEffectHue effectWithHue: 120.0], NULL];
+
        [self gameOver];
 //      _apple1Time = 0;
 //   _apple1Dropped = TRUE;
@@ -845,7 +835,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     [self stopAllActions];
     [self unscheduleAllSelectors];
     [self removeAllChildrenWithCleanup:YES];
-   [_bannerView removeFromSuperview];
    interstitial.delegate = nil;
    interstitial = nil;
    clickSound.delegate = nil;
@@ -978,17 +967,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    }
 }
 
-#pragma mark GADBannerViewDelegate implementation
-
-// We've received an ad successfully.
-- (void)adViewDidReceiveAd:(GADBannerView *)adView {
-   NSLog(@"Received ad successfully");
-}
-
-- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
-   NSLog(@"Failed to receive ad with error: %@", [error localizedFailureReason]);
-}
-
 #pragma mark -
 #pragma mark Interstitial Management
 
@@ -1013,7 +991,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    if (interstitial.isReady) {
 //      [interstitial presentFromRootViewController:[CCDirector sharedDirector]];
    }
-   _bannerView.hidden = YES;
    [self replaceSceneWithTransition];
 }
 
@@ -1137,7 +1114,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 - (void)doRemoveAds{
    _areAdsRemoved = YES;
-   _bannerView.hidden = YES;
    _removeAdsButton.visible = FALSE;
    [[NSUserDefaults standardUserDefaults] setBool:_areAdsRemoved forKey:@"areAdsRemoved"];
 }
