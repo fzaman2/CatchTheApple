@@ -12,7 +12,6 @@
 #import "GADInterstitial.h"
 #import "StoreKit/StoreKit.h"
 
-
 @interface Gameplay : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate, AVAudioPlayerDelegate,GKGameCenterControllerDelegate,GADInterstitialDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 {
 }
