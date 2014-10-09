@@ -13,5 +13,6 @@
 @property (nonatomic, assign) BOOL Dropped;
 @property (nonatomic, assign) NSInteger Number;
 @property (nonatomic, assign) CGFloat Time;
+@property (nonatomic, assign) NSString* Color;
 
 @end
