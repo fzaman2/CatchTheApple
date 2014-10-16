@@ -21,9 +21,9 @@ static const CGFloat distanceBetweenApples = 50.f;
 
 // fixing the drawing order. forcing the ground to be drawn above the pipes.
 typedef NS_ENUM(NSInteger, DrawingOrder) {
-   DrawingOrderApple,
    DrawingOrderGround,
-   DrawingOrdeHero
+   DrawingOrdeHero,
+   DrawingOrderApple
 };
 
 @implementation Gameplay
