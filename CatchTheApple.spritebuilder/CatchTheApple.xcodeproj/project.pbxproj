@@ -26,6 +26,7 @@
 		3AB943F419B486040071FFFD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB943F319B486040071FFFD /* CoreTelephony.framework */; };
 		3AB943F619B4861E0071FFFD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB943F519B4861E0071FFFD /* MessageUI.framework */; };
 		3AB943F819B486320071FFFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB943F719B486310071FFFD /* SystemConfiguration.framework */; };
+		3AE6FC0419F0AC0D00013E09 /* Spider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6FC0319F0AC0C00013E09 /* Spider.m */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -123,6 +124,8 @@
 		3AB943F319B486040071FFFD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3AB943F519B4861E0071FFFD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3AB943F719B486310071FFFD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3AE6FC0219F0AC0C00013E09 /* Spider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Spider.h; path = Source/Spider.h; sourceTree = "<group>"; };
+		3AE6FC0319F0AC0C00013E09 /* Spider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Spider.m; path = Source/Spider.m; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				3A0D911219A58F6000B930EA /* Gameplay.m */,
 				3AAAE68919DE377E00ADBB3D /* Apple.h */,
 				3AAAE68A19DE377E00ADBB3D /* Apple.m */,
+				3AE6FC0219F0AC0C00013E09 /* Spider.h */,
+				3AE6FC0319F0AC0C00013E09 /* Spider.m */,
 				3AB72AB719A6AB89004CBD9E /* Goal.h */,
 				3AB72AB819A6AB89004CBD9E /* Goal.m */,
 			);
@@ -520,6 +525,7 @@
 				3AB72AB919A6AB89004CBD9E /* Goal.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				3A0D911319A58F6000B930EA /* Gameplay.m in Sources */,
+				3AE6FC0419F0AC0D00013E09 /* Spider.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

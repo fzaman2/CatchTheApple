@@ -8,6 +8,7 @@
 
 #import "Gameplay.h"
 #import "Apple.h"
+#import "Spider.h"
 
 static const CGFloat scrollSpeedRate = 250.f;
 static const CGFloat yAccelSpeedRate = 5.f;
@@ -23,7 +24,8 @@ static const CGFloat distanceBetweenApples = 50.f;
 typedef NS_ENUM(NSInteger, DrawingOrder) {
    DrawingOrderGround,
    DrawingOrdeHero,
-   DrawingOrderApple
+   DrawingOrderApple,
+   DrawingOrderSpider
 };
 
 @implementation Gameplay
@@ -55,8 +57,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    NSString *osVersion;
    Apple *_apple1, *_apple2, *_apple3, *_apple4;
    Apple *_apple5, *_apple6, *_apple7, *_apple8;
+   Spider *_spider1;
    UITapGestureRecognizer *tapped;
    UIPanGestureRecognizer  *panned;
+   CCDrawNode *_drawNode;
 }
 
 // is called when CCB file has completed loading
@@ -87,6 +91,12 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    [_physicsNode addChild:_apple6];
    [_physicsNode addChild:_apple7];
    [_physicsNode addChild:_apple8];
+   
+   _spider1 = (Spider *)[CCBReader load:@"Spider"];
+   [_physicsNode addChild:_spider1];
+
+   _spider1.visible = FALSE;
+//   [self spawnNewSpider:_spider1];
    
    int min = 0;
    int max = 7;
@@ -265,6 +275,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _apple6.physicsBody.collisionType = @"apple6";
    _apple7.physicsBody.collisionType = @"apple7";
    _apple8.physicsBody.collisionType = @"apple8";
+   
+   _spider1.physicsBody.collisionType =@"spider1";
 
     for (CCNode *ground in _grounds) {
         // set collision txpe
@@ -389,6 +401,12 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       _removeAdsButton.visible = FALSE;
       _removeAdsButton.enabled = FALSE;
    }
+   
+   _drawNode = [[CCDrawNode alloc] init];
+   _drawNode.contentSize = CGSizeMake(40.0f, 4.0f);
+   [self addChild:_drawNode];
+   _drawNode.position = ccp(0.5,0.5);
+
 }
 
 -(void)screenWasSwipedUp
@@ -480,6 +498,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       _apple6.Time += delta;
       _apple7.Time += delta;
       _apple8.Time += delta;
+      _spider1.Time += delta;
+      
       CGPoint point = [panned locationInView:[CCDirector sharedDirector].view];
 //      NSLog(@"%f %f",point.x, point.y);
 //      if (_hero.position.x - _newHeroPosition >= 80.0)
@@ -534,6 +554,18 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       {
          [self positionApple:_apple8];
       }
+      
+      if(_points > 0 && _points % 8 == 0)
+      {
+         _spider1.Dropped = FALSE;
+         [self spawnNewSpider:_spider1];
+      }
+
+      if(_spider1.Time > 1 && !_spider1.Dropped)
+      {
+         _spider1.position = ccp(_spider1.position.x, _spider1.position.y - _yAccelSpeed);
+      }
+
       //        CCLOG(@"%f",_hero.position.y);
 //      _physicsNode.position = ccp(_physicsNode.position.x - (_scrollSpeed *delta), _physicsNode.position.y);
       // loop the ground
@@ -691,6 +723,15 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _apple.zOrder = DrawingOrderApple;
 }
 
+- (void)spawnNewSpider:(Spider *)_spider{
+   float width = [CCDirector sharedDirector].view.frame.size.width;
+   float height = [CCDirector sharedDirector].view.frame.size.height;
+   _spider.position = ccp(width/2.0,height/2.0);
+   _spider.visible = YES;
+   // fixing drawing order. drawing grounds in front of pipes.
+   _spider.zOrder = DrawingOrderSpider;
+}
+
 - (void)selectApple:(Apple *)_apple
 {
    if(_points % 3 == 0)
@@ -720,7 +761,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
    [self selectApple:_apple1];
-    return TRUE;
+   return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple2:(Apple *)apple2 {
@@ -814,6 +855,20 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    {
       _apple.effect = [CCEffectStack effects: [CCEffectPixellate effectWithBlockSize: 4],[CCEffectHue effectWithHue: 120.0], NULL];
    }
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero spider1:(Apple *)spider1 {
+   [self gameOver];
+   return TRUE;
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair spider1:(Spider *)spider1 level:(CCNode *)level {
+   _spider1.Time = 0;
+   _spider1.Dropped = TRUE;
+   _spider1.visible = NO;
+   _spider1.position = ccp(0.0,0.0);
+//   [self selectApple:_apple1];
+   return TRUE;
 }
 
 
