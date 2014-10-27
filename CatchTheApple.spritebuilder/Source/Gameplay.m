@@ -403,11 +403,12 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    }
    
    _drawNode = [[CCDrawNode alloc] init];
-   _drawNode.contentSize = CGSizeMake(40.0f, 4.0f);
+//   _drawNode.contentSize = CGSizeMake(40.0f, 4.0f);
    [self addChild:_drawNode];
-   _drawNode.position = ccp(0.5,0.5);
+//   _drawNode.position = ccp(0.5,0.5);
 
 }
+
 
 -(void)screenWasSwipedUp
 {
@@ -564,6 +565,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       if(_spider1.Time > 1 && !_spider1.Dropped)
       {
          _spider1.position = ccp(_spider1.position.x, _spider1.position.y - _yAccelSpeed);
+         [_drawNode drawSegmentFrom:ccp(_spider1.position.x,_spider1.position.y+20) to:ccp(_spider1.position.x,_spider1.position.y+15) radius:1 color:[CCColor colorWithCcColor3b:ccWHITE]];
+
       }
 
       //        CCLOG(@"%f",_hero.position.y);
@@ -867,6 +870,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _spider1.Dropped = TRUE;
    _spider1.visible = NO;
    _spider1.position = ccp(0.0,0.0);
+   [_drawNode clear];
 //   [self selectApple:_apple1];
    return TRUE;
 }
