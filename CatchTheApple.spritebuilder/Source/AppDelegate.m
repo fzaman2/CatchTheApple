@@ -63,11 +63,11 @@
    // The AV Audio Player needs a URL to the file that will be played to be specified.
    // So, we're going to set the audio file's path and then convert it to a URL.
    // play sound
-   NSString *audioFilePath1 = [[NSBundle mainBundle] pathForResource:@"soothing" ofType:@"wav"];
+   NSString *audioFilePath1 = [[NSBundle mainBundle] pathForResource:@"powerUp1" ofType:@"wav"];
    NSURL *pathAsURL1 = [[NSURL alloc] initFileURLWithPath:audioFilePath1];
    NSError *error1;
    playSound = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL1 error:&error1];
-   playSound.numberOfLoops = -1;
+   playSound.numberOfLoops = 0;
    playSound.volume = 0.5;
    
    // Check out what's wrong in case that the player doesn't init.

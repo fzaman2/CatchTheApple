@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    CCNode *_banner;
     CCLabelTTF *_highScoreValue;
     CCLabelTTF *_scoreValue;
-   AVAudioPlayer *clickSound, *gameOverSound;
+   AVAudioPlayer *clickSound, *gameOverSound, *playSound;
    UIImage *_image;
    GADInterstitial *interstitial;
    CCButton *_removeAdsButton;
@@ -384,7 +384,19 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    }
    
    [clickSound setDelegate:self];
-//   [self authenticateLocalPlayer];
+
+   // play sound
+   NSString *audioFilePath3 = [[NSBundle mainBundle] pathForResource:@"powerUp2" ofType:@"wav"];
+   NSURL *pathAsURL3 = [[NSURL alloc] initFileURLWithPath:audioFilePath3];
+   NSError *error3;
+   playSound = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL3 error:&error3];
+   playSound.volume = 0.5;
+   if (error3) {
+      NSLog(@"%@", [error3 localizedDescription]);
+   }
+   else{
+      [playSound prepareToPlay];
+   }
 
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
    [spinner setCenter:CGPointMake([CCDirector sharedDirector].view.frame.size.width/2.0, [CCDirector sharedDirector].view.frame.size.height/2.0)]; // I do this because I'm in landscape mode
@@ -403,9 +415,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    }
    
    _drawNode = [[CCDrawNode alloc] init];
-//   _drawNode.contentSize = CGSizeMake(40.0f, 4.0f);
-   [self addChild:_drawNode];
-//   _drawNode.position = ccp(0.5,0.5);
+   [_physicsNode addChild:_drawNode];
 
 }
 
@@ -429,26 +439,16 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     if (_gameOver && _scrollSpeed != 0) {
           _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+       [playSound play];
     }
 }
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   UITouch *touch = [touches anyObject];
-   
-   // Get the specific point that was touched
-   CGPoint point = [touch locationInView:[CCDirector sharedDirector].view];
-   NSLog(@"X location: %f", point.x);
-   NSLog(@"Y Location: %f",point.y);
-   
-}
-
 
 -(void)screenWasSwipedRight
 {
    if (_gameOver && _scrollSpeed != 0) {
       _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+      [playSound play];
    }
    else {
       if(_hero.position.x < 430)
@@ -472,6 +472,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    if (_gameOver && _scrollSpeed != 0) {
       _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+      [playSound play];
    }
    else {
       if(_hero.position.x == 30 ||
@@ -517,11 +518,11 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //      }
       if(point.x != 0)
       {
-      _hero.position = ccp(point.x, 0.12);
+      _hero.position = ccp(point.x, 0.14);
       }
       else
       {
-      _hero.position = ccp(_hero.position.x, 0.12);
+      _hero.position = ccp(_hero.position.x, 0.14);
       }
       if(_apple1.Time > 1 && !_apple1.Dropped)
       {
@@ -861,6 +862,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero spider1:(Apple *)spider1 {
+   _hero.effect = [CCEffectPixellate effectWithBlockSize:5];
    [self gameOver];
    return TRUE;
 }

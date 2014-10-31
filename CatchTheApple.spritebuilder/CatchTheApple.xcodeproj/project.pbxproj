@@ -13,10 +13,13 @@
 		3A6CFF1C19D8900000F39A5F /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CFF1B19D8900000F39A5F /* EventKit.framework */; };
 		3A6CFF1E19D8900A00F39A5F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CFF1D19D8900A00F39A5F /* EventKitUI.framework */; };
 		3A7C3BE719C63A0C00774EF3 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7C3BE619C63A0C00774EF3 /* dot.png */; };
+		3A89409E1A01D82D0052EE94 /* pepSound1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A89409D1A01D82D0052EE94 /* pepSound1.wav */; };
+		3A8940A11A01D83D0052EE94 /* highDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A01A01D83D0052EE94 /* highDown.wav */; };
+		3A8940A31A01D8EB0052EE94 /* powerUp1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A21A01D8EB0052EE94 /* powerUp1.wav */; };
+		3A8940A51A01D9D90052EE94 /* powerUp2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A41A01D9D90052EE94 /* powerUp2.wav */; };
 		3AAAE68B19DE377E00ADBB3D /* Apple.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAAE68A19DE377E00ADBB3D /* Apple.m */; };
 		3AB72AB519A59783004CBD9E /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AB72AB419A59783004CBD9E /* click.wav */; };
 		3AB72AB919A6AB89004CBD9E /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB72AB819A6AB89004CBD9E /* Goal.m */; };
-		3AB72AC119AF4109004CBD9E /* soothing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AB72AC019AF4109004CBD9E /* soothing.wav */; };
 		3AB72AC319B00A2C004CBD9E /* game_over.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AB72AC219B00A2C004CBD9E /* game_over.wav */; };
 		3AB72AC719B2C815004CBD9E /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB72AC619B2C815004CBD9E /* GameController.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3AB72AC919B2C829004CBD9E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB72AC819B2C829004CBD9E /* GameKit.framework */; };
@@ -109,12 +112,15 @@
 		3A6CFF1B19D8900000F39A5F /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3A6CFF1D19D8900A00F39A5F /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		3A7C3BE619C63A0C00774EF3 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot.png; path = "Packages/SpriteBuilder Resources.sbpack/Items/resources-auto/dot.png"; sourceTree = SOURCE_ROOT; };
+		3A89409D1A01D82D0052EE94 /* pepSound1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pepSound1.wav; sourceTree = "<group>"; };
+		3A8940A01A01D83D0052EE94 /* highDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = highDown.wav; sourceTree = "<group>"; };
+		3A8940A21A01D8EB0052EE94 /* powerUp1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp1.wav; sourceTree = "<group>"; };
+		3A8940A41A01D9D90052EE94 /* powerUp2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp2.wav; sourceTree = "<group>"; };
 		3AAAE68919DE377E00ADBB3D /* Apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Apple.h; path = Source/Apple.h; sourceTree = "<group>"; };
 		3AAAE68A19DE377E00ADBB3D /* Apple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Apple.m; path = Source/Apple.m; sourceTree = "<group>"; };
 		3AB72AB419A59783004CBD9E /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		3AB72AB719A6AB89004CBD9E /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Goal.h; path = Source/Goal.h; sourceTree = "<group>"; };
 		3AB72AB819A6AB89004CBD9E /* Goal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Goal.m; path = Source/Goal.m; sourceTree = "<group>"; };
-		3AB72AC019AF4109004CBD9E /* soothing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soothing.wav; sourceTree = "<group>"; };
 		3AB72AC219B00A2C004CBD9E /* game_over.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = game_over.wav; sourceTree = "<group>"; };
 		3AB72AC619B2C815004CBD9E /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		3AB72AC819B2C829004CBD9E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -375,7 +381,10 @@
 			children = (
 				3AB90E5419BCEA21008F880B /* Images.xcassets */,
 				3AB72AC219B00A2C004CBD9E /* game_over.wav */,
-				3AB72AC019AF4109004CBD9E /* soothing.wav */,
+				3A8940A01A01D83D0052EE94 /* highDown.wav */,
+				3A89409D1A01D82D0052EE94 /* pepSound1.wav */,
+				3A8940A41A01D9D90052EE94 /* powerUp2.wav */,
+				3A8940A21A01D8EB0052EE94 /* powerUp1.wav */,
 				3A7C3BE619C63A0C00774EF3 /* dot.png */,
 				3AB72AB419A59783004CBD9E /* click.wav */,
 				B73789911807667A0076A88C /* Icons */,
@@ -476,6 +485,7 @@
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				3AB90E5519BCEA21008F880B /* Images.xcassets in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
+				3A8940A31A01D8EB0052EE94 /* powerUp1.wav in Resources */,
 				3AB72AC319B00A2C004CBD9E /* game_over.wav in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
@@ -484,14 +494,16 @@
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
+				3A8940A51A01D9D90052EE94 /* powerUp2.wav in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				3AB72AB519A59783004CBD9E /* click.wav in Resources */,
+				3A89409E1A01D82D0052EE94 /* pepSound1.wav in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				3A7C3BE719C63A0C00774EF3 /* dot.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
-				3AB72AC119AF4109004CBD9E /* soothing.wav in Resources */,
+				3A8940A11A01D83D0052EE94 /* highDown.wav in Resources */,
 				3A6CFF1A19D88F7700F39A5F /* README.txt in Resources */,
 				B71F5911188484E7003F4D28 /* iPad-old.png in Resources */,
 			);
