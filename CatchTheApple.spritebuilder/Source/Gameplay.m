@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     CCLabelTTF *_highScoreValue;
     CCLabelTTF *_scoreValue;
    AVAudioPlayer *clickSound, *gameOverSound, *playSound;
+   AVAudioPlayer *dropSound;
    UIImage *_image;
    GADInterstitial *interstitial;
    CCButton *_removeAdsButton;
@@ -374,6 +375,19 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       [playSound prepareToPlay];
    }
 
+   // drop sound
+   NSString *audioFilePath4 = [[NSBundle mainBundle] pathForResource:@"highDown" ofType:@"wav"];
+   NSURL *pathAsURL4 = [[NSURL alloc] initFileURLWithPath:audioFilePath4];
+   NSError *error4;
+   dropSound = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL4 error:&error4];
+   dropSound.volume = 0.5;
+   if (error4) {
+      NSLog(@"%@", [error4 localizedDescription]);
+   }
+   else{
+      [dropSound prepareToPlay];
+   }
+   
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
    [spinner setCenter:CGPointMake([CCDirector sharedDirector].view.frame.size.width/2.0, [CCDirector sharedDirector].view.frame.size.height/2.0)]; // I do this because I'm in landscape mode
    [[[CCDirector sharedDirector]view]addSubview:spinner];
@@ -453,34 +467,74 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       if(_apple1.Time > 1 && !_apple1.Dropped)
       {
          [self positionApple:_apple1];
+         if(!_apple1.SoundPlayed)
+         {
+            [dropSound play];
+            _apple1.SoundPlayed = true;
+         }
       }
       if(_apple2.Time > 2 && !_apple2.Dropped)
       {
          [self positionApple:_apple2];
+         if(!_apple2.SoundPlayed)
+         {
+            [dropSound play];
+            _apple2.SoundPlayed = true;
+         }
       }
       if(_apple3.Time > 3 && !_apple3.Dropped)
       {
          [self positionApple:_apple3];
+         if(!_apple3.SoundPlayed)
+         {
+            [dropSound play];
+            _apple3.SoundPlayed = true;
+         }
       }
       if(_apple4.Time > 4 && !_apple4.Dropped)
       {
          [self positionApple:_apple4];
+         if(!_apple4.SoundPlayed)
+         {
+            [dropSound play];
+            _apple4.SoundPlayed = true;
+         }
       }
       if(_apple5.Time > 5 && !_apple5.Dropped)
       {
          [self positionApple:_apple5];
+         if(!_apple5.SoundPlayed)
+         {
+            [dropSound play];
+            _apple5.SoundPlayed = true;
+         }
       }
       if(_apple6.Time > 6 && !_apple6.Dropped)
       {
          [self positionApple:_apple6];
+         if(!_apple6.SoundPlayed)
+         {
+            [dropSound play];
+            _apple6.SoundPlayed = true;
+         }
       }
       if(_apple7.Time > 7 && !_apple7.Dropped)
       {
          [self positionApple:_apple7];
+         if(!_apple7.SoundPlayed)
+         {
+            [dropSound play];
+            _apple7.SoundPlayed = true;
+         }
       }
       if(_apple8.Time > 8 && !_apple8.Dropped)
       {
          [self positionApple:_apple8];
+         if(!_apple8.SoundPlayed)
+         {
+            [dropSound play];
+            _apple8.SoundPlayed = true;
+         }
       }
       
       if(_points > 0 && _points % 8 == 0)
@@ -685,6 +739,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //    [self gameOver];
 //   [apple removeFromParent];
    _apple1.Time = 0;
+   _apple1.SoundPlayed = FALSE;
    _apple1.Dropped = TRUE;
    _apple2.Dropped = FALSE;
    apple1.visible = NO;
@@ -696,6 +751,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple2:(Apple *)apple2 {
    _apple2.Time = 0;
+   _apple2.SoundPlayed = FALSE;
    _apple2.Dropped = TRUE;
    _apple3.Dropped = FALSE;
    apple2.visible = NO;
@@ -707,6 +763,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple3:(Apple *)apple3 {
    _apple3.Time = 0;
+   _apple3.SoundPlayed = FALSE;
    _apple3.Dropped = TRUE;
    _apple4.Dropped = FALSE;
    apple3.visible = NO;
@@ -718,6 +775,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple4:(Apple *)apple4 {
    _apple4.Time = 0;
+   _apple4.SoundPlayed = FALSE;
    _apple4.Dropped = TRUE;
    _apple5.Dropped = FALSE;
    apple4.visible = NO;
@@ -729,6 +787,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple5:(Apple *)apple5 {
    _apple5.Time = 0;
+   _apple5.SoundPlayed = FALSE;
    _apple5.Dropped = TRUE;
    _apple6.Dropped = FALSE;
    apple5.visible = NO;
@@ -740,6 +799,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple6:(Apple *)apple6 {
    _apple6.Time = 0;
+   _apple6.SoundPlayed = FALSE;
    _apple6.Dropped = TRUE;
    _apple7.Dropped = FALSE;
    apple6.visible = NO;
@@ -751,6 +811,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(Apple *)apple7 {
    _apple7.Time = 0;
+   _apple7.SoundPlayed = FALSE;
    _apple7.Dropped = TRUE;
    _apple8.Dropped = FALSE;
    apple7.visible = NO;
@@ -762,6 +823,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(Apple *)apple8 {
    _apple8.Time = 0;
+   _apple8.SoundPlayed = FALSE;
    _apple8.Dropped = TRUE;
    _apple1.Dropped = FALSE;
    apple8.visible = NO;
