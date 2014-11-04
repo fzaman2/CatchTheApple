@@ -294,30 +294,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _yAccelSpeed = yAccelSpeedRate;
     
     // GestureRecognizer Code
-    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedUp)];
-    swipeUp.numberOfTouchesRequired = 1;
-    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-    
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeUp];
-    
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedDown)];
-    swipeDown.numberOfTouchesRequired = 1;
-    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
-    
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeDown];
-
-   UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedRight)];
-   swipeRight.numberOfTouchesRequired = 1;
-   swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-   
-   [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRight];
-
-   UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedLeft)];
-   swipeLeft.numberOfTouchesRequired = 1;
-   swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-   
-   [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeLeft];
-   
    tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTapped)];
     tapped.numberOfTapsRequired = 1;
     tapped.numberOfTouchesRequired = 1;
@@ -420,17 +396,13 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 }
 
 
--(void)screenWasSwipedUp
-{
-}
-
--(void)screenWasSwipedDown
-{
-}
-
 -(void)panned
 {
-   
+   if (_gameOver && _scrollSpeed != 0) {
+      _gameOver = FALSE;
+      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+      [playSound play];
+   }
 }
 
 -(void)screenTapped
@@ -442,52 +414,6 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
        [playSound play];
     }
 }
-
--(void)screenWasSwipedRight
-{
-   if (_gameOver && _scrollSpeed != 0) {
-      _gameOver = FALSE;
-      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
-      [playSound play];
-   }
-   else {
-      if(_hero.position.x < 430)
-      {
-         if(_hero.position.x == 30 ||
-            _hero.position.x == 110 ||
-            _hero.position.x == 190 ||
-            _hero.position.x == 270 ||
-            _hero.position.x == 350)
-            //       _hero.position.y == 410)
-         {
-            _swiped = 1.0f;
-            _newHeroPosition = _hero.position.x;
-         }
-      }
-   }
-}
-
--(void)screenWasSwipedLeft
-{
-   if (_gameOver && _scrollSpeed != 0) {
-      _gameOver = FALSE;
-      [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
-      [playSound play];
-   }
-   else {
-      if(_hero.position.x == 30 ||
-         _hero.position.x == 110 ||
-         _hero.position.x == 190 ||
-         _hero.position.x == 270 ||
-         _hero.position.x == 350)
-         //       _hero.position.y == 410)
-      {
-         _swiped = -1.0f;
-         _newHeroPosition = _hero.position.x;
-      }
-   }
-}
-
 
 - (void)update:(CCTime)delta
 {
