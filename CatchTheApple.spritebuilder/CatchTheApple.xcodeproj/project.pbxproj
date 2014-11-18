@@ -17,6 +17,7 @@
 		3A8940A11A01D83D0052EE94 /* highDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A01A01D83D0052EE94 /* highDown.wav */; };
 		3A8940A31A01D8EB0052EE94 /* powerUp1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A21A01D8EB0052EE94 /* powerUp1.wav */; };
 		3A8940A51A01D9D90052EE94 /* powerUp2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940A41A01D9D90052EE94 /* powerUp2.wav */; };
+		3A8940AB1A0C65470052EE94 /* powerUp3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A8940AA1A0C65470052EE94 /* powerUp3.wav */; };
 		3AAAE68B19DE377E00ADBB3D /* Apple.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAAE68A19DE377E00ADBB3D /* Apple.m */; };
 		3AB72AB519A59783004CBD9E /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AB72AB419A59783004CBD9E /* click.wav */; };
 		3AB72AB919A6AB89004CBD9E /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB72AB819A6AB89004CBD9E /* Goal.m */; };
@@ -116,6 +117,7 @@
 		3A8940A01A01D83D0052EE94 /* highDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = highDown.wav; sourceTree = "<group>"; };
 		3A8940A21A01D8EB0052EE94 /* powerUp1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp1.wav; sourceTree = "<group>"; };
 		3A8940A41A01D9D90052EE94 /* powerUp2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp2.wav; sourceTree = "<group>"; };
+		3A8940AA1A0C65470052EE94 /* powerUp3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp3.wav; sourceTree = "<group>"; };
 		3AAAE68919DE377E00ADBB3D /* Apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Apple.h; path = Source/Apple.h; sourceTree = "<group>"; };
 		3AAAE68A19DE377E00ADBB3D /* Apple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Apple.m; path = Source/Apple.m; sourceTree = "<group>"; };
 		3AB72AB419A59783004CBD9E /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				3AB72AC219B00A2C004CBD9E /* game_over.wav */,
 				3A8940A01A01D83D0052EE94 /* highDown.wav */,
 				3A89409D1A01D82D0052EE94 /* pepSound1.wav */,
+				3A8940AA1A0C65470052EE94 /* powerUp3.wav */,
 				3A8940A41A01D9D90052EE94 /* powerUp2.wav */,
 				3A8940A21A01D8EB0052EE94 /* powerUp1.wav */,
 				3A7C3BE619C63A0C00774EF3 /* dot.png */,
@@ -493,6 +496,7 @@
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
+				3A8940AB1A0C65470052EE94 /* powerUp3.wav in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				3A8940A51A01D9D90052EE94 /* powerUp2.wav in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,

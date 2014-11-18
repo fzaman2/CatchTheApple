@@ -45,8 +45,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     CGFloat _swiped;
     CGFloat _newHeroPosition;
     CCNode *_gameOverBox;
+   CCLabelTTF *_gameOverText;
    CCNode *_scoreLabelBox;
    CCNode *_banner;
+   CCLabelTTF *_bannerText;
     CCLabelTTF *_highScoreValue;
     CCLabelTTF *_scoreValue;
    AVAudioPlayer *clickSound, *gameOverSound, *playSound;
@@ -325,7 +327,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    // The AV Audio Player needs a URL to the file that will be played to be specified.
    // So, we're going to set the audio file's path and then convert it to a URL.
    // game over sound
-   NSString *audioFilePath1 = [[NSBundle mainBundle] pathForResource:@"game_over" ofType:@"wav"];
+   NSString *audioFilePath1 = [[NSBundle mainBundle] pathForResource:@"powerUp3" ofType:@"wav"];
    NSURL *pathAsURL1 = [[NSURL alloc] initFileURLWithPath:audioFilePath1];
    NSError *error1;
    gameOverSound = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL1 error:&error1];
@@ -394,6 +396,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    
    _gameOver = TRUE;
    _banner.visible = TRUE;
+   _bannerText.visible = TRUE;
 
    if(!_areAdsRemoved){
       _removeAdsButton.visible = TRUE;
@@ -415,6 +418,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    if (_gameOver && _scrollSpeed != 0) {
       _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+      [_bannerText runAction:[CCActionFadeOut actionWithDuration:1.0]];
       [playSound play];
    }
 }
@@ -425,6 +429,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     if (_gameOver && _scrollSpeed != 0) {
           _gameOver = FALSE;
       [_banner runAction:[CCActionFadeOut actionWithDuration:1.0]];
+       [_bannerText runAction:[CCActionFadeOut actionWithDuration:1.0]];
        [playSound play];
     }
 }
@@ -600,7 +605,9 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
             _scoreLabel.visible = FALSE;
             _scoreLabelBox.visible = FALSE;
             _gameOverBox.visible = TRUE;
+            _gameOverText.visible = TRUE;
             [_gameOverBox runAction:[CCActionFadeIn  actionWithDuration:0.5]];
+            [_gameOverText runAction:[CCActionFadeIn  actionWithDuration:0.5]];
 
             _localCounter++;
             _scoreValue.string = [NSString stringWithFormat:@"%ld", (long)_localCounter-1];
@@ -745,6 +752,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple1.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple1];
    return TRUE;
 }
@@ -757,6 +765,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple2.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple2];
    return TRUE;
 }
@@ -769,6 +778,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple3.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple3];
    return TRUE;
 }
@@ -781,6 +791,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple4.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple4];
    return TRUE;
 }
@@ -793,6 +804,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple5.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple5];
    return TRUE;
 }
@@ -805,6 +817,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple6.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple6];
    return TRUE;
 }
@@ -817,6 +830,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple7.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple7];
    return TRUE;
 }
@@ -829,6 +843,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    apple8.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+   [playSound play];
    [self selectApple:_apple8];
    return TRUE;
 }
@@ -851,6 +866,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero spider1:(Apple *)spider1 {
    _hero.effect = [CCEffectPixellate effectWithBlockSize:5];
+   [gameOverSound play];
    [self gameOver];
    return TRUE;
 }

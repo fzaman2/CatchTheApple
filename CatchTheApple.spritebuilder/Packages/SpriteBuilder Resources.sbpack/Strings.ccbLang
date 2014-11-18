@@ -5,12 +5,39 @@
 	<key>activeLanguages</key>
 	<array>
 		<string>en</string>
+		<string>fr</string>
 	</array>
 	<key>fileType</key>
 	<string>SpriteBuilderTranslations</string>
 	<key>fileVersion</key>
 	<integer>1</integer>
 	<key>translations</key>
-	<array/>
+	<array>
+		<dict>
+			<key>key</key>
+			<string>SWIPE HERE TO MOVE THE BASKET
+&lt;&lt;&lt;                                                  &gt;&gt;&gt;</string>
+			<key>translations</key>
+			<dict>
+				<key>en</key>
+				<string>SWIPE HERE TO MOVE THE BASKET
+&lt;&lt;&lt;                                                  &gt;&gt;&gt;</string>
+				<key>fr</key>
+				<string>SWIPE ICI POUR DÉPLACER LE PANIER
+&lt;&lt;&lt;                                                      &gt;&gt;&gt;</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>key</key>
+			<string>GAME OVER</string>
+			<key>translations</key>
+			<dict>
+				<key>en</key>
+				<string>GAME OVER</string>
+				<key>fr</key>
+				<string>jeu terminé</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
