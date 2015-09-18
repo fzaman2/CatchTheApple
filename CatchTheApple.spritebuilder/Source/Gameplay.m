@@ -64,6 +64,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    UITapGestureRecognizer *tapped;
    UIPanGestureRecognizer  *panned;
    CCDrawNode *_drawNode;
+   BOOL _goRight;
+   CGSize _screenSize, _heroSize;
 }
 
 // is called when CCB file has completed loading
@@ -409,6 +411,10 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    
    _drawNode = [[CCDrawNode alloc] init];
    [_physicsNode addChild:_drawNode];
+   
+   _goRight = FALSE;
+   _screenSize = [CCDirector sharedDirector].view.frame.size;
+   _heroSize = _hero.contentSize;
 
 }
 
@@ -432,20 +438,28 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
        [_bannerText runAction:[CCActionFadeOut actionWithDuration:1.0]];
        [playSound play];
     }
+    else {
+       if(_goRight){
+          _goRight = FALSE;
+       }
+       else {
+          _goRight = TRUE;
+       }
+    }
 }
 
 - (void)update:(CCTime)delta
 {
    if(!_gameOver){
-      _apple1.Time += delta;
-      _apple2.Time += delta;
-      _apple3.Time += delta;
-      _apple4.Time += delta;
-      _apple5.Time += delta;
-      _apple6.Time += delta;
-      _apple7.Time += delta;
-      _apple8.Time += delta;
-      _spider1.Time += delta;
+      _apple1.Time += delta/2;
+      _apple2.Time += delta/2;
+      _apple3.Time += delta/2;
+      _apple4.Time += delta/2;
+      _apple5.Time += delta/2;
+      _apple6.Time += delta/2;
+      _apple7.Time += delta/2;
+      _apple8.Time += delta/2;
+      _spider1.Time += delta/2;
       
       CGPoint point = [panned locationInView:[CCDirector sharedDirector].view];
 //      NSLog(@"%f %f",point.x, point.y);
@@ -461,6 +475,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //      {
 //         _hero.position = ccp(_hero.position.x + _swiped * yAccelSpeed, _hero.position.y);
 //      }
+      /* Moving hero by taps instead of Pan, if that doesn't work out uncomment this code
       if(point.x != 0)
       {
       _hero.position = ccp(point.x, 0.14);
@@ -468,6 +483,14 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       else
       {
       _hero.position = ccp(_hero.position.x, 0.14);
+      }
+       */
+      if(_goRight) {
+//         _hero.position = ccp(_hero.position.x+5, 0.14);
+         _hero.position = ccp(clampf(_hero.position.x+5, _heroSize.width * 0.5f, _screenSize.width - _heroSize.width * 0.5f), 0.14);
+      }
+      else {
+         _hero.position = ccp(clampf(_hero.position.x-5, _heroSize.width * 0.5f, _screenSize.width - _heroSize.width * 0.5f), 0.14);
       }
       if(_apple1.Time > 1 && !_apple1.Dropped)
       {
