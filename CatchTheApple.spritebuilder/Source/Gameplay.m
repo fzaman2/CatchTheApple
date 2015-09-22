@@ -11,7 +11,7 @@
 #import "Spider.h"
 
 static const CGFloat scrollSpeedRate = 250.f;
-static const CGFloat yAccelSpeedRate = 5.f;
+static const CGFloat yAccelSpeedRate = 3.f;
 static const CGFloat firstApplePosition = 0.f;
 static const CGFloat distanceBetweenApples = 50.f;
 
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    UIActivityIndicatorView *spinner;
    NSString *osVersion;
    Apple *_apple1, *_apple2, *_apple3, *_apple4;
-   Apple *_apple5, *_apple6, *_apple7, *_apple8;
+   Apple *_apple5, *_apple6;
    Spider *_spider1;
    UITapGestureRecognizer *tapped;
    UIPanGestureRecognizer  *panned;
@@ -85,8 +85,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _apple4 = (Apple *)[CCBReader load:@"Apple"];
    _apple5 = (Apple *)[CCBReader load:@"Apple"];
    _apple6 = (Apple *)[CCBReader load:@"Apple"];
-   _apple7 = (Apple *)[CCBReader load:@"Apple"];
-   _apple8 = (Apple *)[CCBReader load:@"Apple"];
+//   _apple7 = (Apple *)[CCBReader load:@"Apple"];
+//   _apple8 = (Apple *)[CCBReader load:@"Apple"];
 
    [_physicsNode addChild:_apple1];
    [_physicsNode addChild:_apple2];
@@ -94,8 +94,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    [_physicsNode addChild:_apple4];
    [_physicsNode addChild:_apple5];
    [_physicsNode addChild:_apple6];
-   [_physicsNode addChild:_apple7];
-   [_physicsNode addChild:_apple8];
+//   [_physicsNode addChild:_apple7];
+//   [_physicsNode addChild:_apple8];
    
    _spider1 = (Spider *)[CCBReader load:@"Spider"];
    [_physicsNode addChild:_spider1];
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 //   [self spawnNewSpider:_spider1];
    
    int min = 0;
-   int max = 7;
+   int max = 5;
    int random = (arc4random()%(max-min))+min;
    
    switch (random) {
@@ -116,16 +116,16 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
          [self spawnNewApple:_apple4 appleNumber:4 appleColor:@"Red"];
          [self spawnNewApple:_apple5 appleNumber:5 appleColor:@"Red"];
          [self spawnNewApple:_apple6 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:8 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:7 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:8 appleColor:@"Red"];
          _apple1.Number = 1;
          _apple2.Number = 2;
          _apple3.Number = 3;
          _apple4.Number = 4;
          _apple5.Number = 5;
          _apple6.Number = 6;
-         _apple7.Number = 7;
-         _apple8.Number = 8;
+//         _apple7.Number = 7;
+//         _apple8.Number = 8;
          break;
       }
       case 1:
@@ -135,17 +135,17 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
          [self spawnNewApple:_apple3 appleNumber:4 appleColor:@"Red"];
          [self spawnNewApple:_apple4 appleNumber:5 appleColor:@"Red"];
          [self spawnNewApple:_apple5 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:1 appleColor:@"Red"];
+         [self spawnNewApple:_apple6 appleNumber:1 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:8 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:1 appleColor:@"Red"];
          _apple1.Number = 2;
          _apple2.Number = 3;
          _apple3.Number = 4;
          _apple4.Number = 5;
          _apple5.Number = 6;
-         _apple6.Number = 7;
-         _apple7.Number = 8;
-         _apple8.Number = 1;
+         _apple6.Number = 1;
+//         _apple7.Number = 8;
+//         _apple8.Number = 1;
          break;
       }
       case 2:
@@ -154,18 +154,18 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
          [self spawnNewApple:_apple2 appleNumber:4 appleColor:@"Red"];
          [self spawnNewApple:_apple3 appleNumber:5 appleColor:@"Red"];
          [self spawnNewApple:_apple4 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple5 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:1 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:2 appleColor:@"Red"];
+         [self spawnNewApple:_apple5 appleNumber:1 appleColor:@"Red"];
+         [self spawnNewApple:_apple6 appleNumber:2 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:1 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:2 appleColor:@"Red"];
          _apple1.Number = 3;
          _apple2.Number = 4;
          _apple3.Number = 5;
          _apple4.Number = 6;
-         _apple5.Number = 7;
-         _apple6.Number = 8;
-         _apple7.Number = 1;
-         _apple8.Number = 2;
+         _apple5.Number = 1;
+         _apple6.Number = 2;
+//         _apple7.Number = 1;
+//         _apple8.Number = 2;
          break;
       }
       case 3:
@@ -173,101 +173,101 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
          [self spawnNewApple:_apple1 appleNumber:4 appleColor:@"Red"];
          [self spawnNewApple:_apple2 appleNumber:5 appleColor:@"Red"];
          [self spawnNewApple:_apple3 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple4 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple5 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:1 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:2 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:3 appleColor:@"Red"];
+         [self spawnNewApple:_apple4 appleNumber:1 appleColor:@"Red"];
+         [self spawnNewApple:_apple5 appleNumber:2 appleColor:@"Red"];
+         [self spawnNewApple:_apple6 appleNumber:3 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:2 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:3 appleColor:@"Red"];
          _apple1.Number = 4;
          _apple2.Number = 5;
          _apple3.Number = 6;
-         _apple4.Number = 7;
-         _apple5.Number = 8;
-         _apple6.Number = 1;
-         _apple7.Number = 2;
-         _apple8.Number = 3;
+         _apple4.Number = 1;
+         _apple5.Number = 2;
+         _apple6.Number = 3;
+//         _apple7.Number = 2;
+//         _apple8.Number = 3;
          break;
       }
       case 4:
       {
          [self spawnNewApple:_apple1 appleNumber:5 appleColor:@"Red"];
          [self spawnNewApple:_apple2 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple3 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple4 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple5 appleNumber:1 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:2 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:3 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:4 appleColor:@"Red"];
+         [self spawnNewApple:_apple3 appleNumber:1 appleColor:@"Red"];
+         [self spawnNewApple:_apple4 appleNumber:2 appleColor:@"Red"];
+         [self spawnNewApple:_apple5 appleNumber:3 appleColor:@"Red"];
+         [self spawnNewApple:_apple6 appleNumber:4 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:3 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:4 appleColor:@"Red"];
          _apple1.Number = 5;
          _apple2.Number = 6;
-         _apple3.Number = 7;
-         _apple4.Number = 8;
-         _apple5.Number = 1;
-         _apple6.Number = 2;
-         _apple7.Number = 3;
-         _apple8.Number = 4;
+         _apple3.Number = 1;
+         _apple4.Number = 2;
+         _apple5.Number = 3;
+         _apple6.Number = 4;
+//         _apple7.Number = 3;
+//         _apple8.Number = 4;
          break;
       }
       case 5:
       {
          [self spawnNewApple:_apple1 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple2 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple3 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple4 appleNumber:1 appleColor:@"Red"];
-         [self spawnNewApple:_apple5 appleNumber:2 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:3 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:4 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:5 appleColor:@"Red"];
-         _apple1.Number = 6;
-         _apple2.Number = 7;
-         _apple3.Number = 8;
-         _apple4.Number = 1;
-         _apple5.Number = 2;
-         _apple6.Number = 3;
-         _apple7.Number = 4;
-         _apple8.Number = 5;
-         break;
-      }
-      case 6:
-      {
-         [self spawnNewApple:_apple1 appleNumber:7 appleColor:@"Red"];
-         [self spawnNewApple:_apple2 appleNumber:8 appleColor:@"Red"];
-         [self spawnNewApple:_apple3 appleNumber:1 appleColor:@"Red"];
-         [self spawnNewApple:_apple4 appleNumber:2 appleColor:@"Red"];
-         [self spawnNewApple:_apple5 appleNumber:3 appleColor:@"Red"];
-         [self spawnNewApple:_apple6 appleNumber:4 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:5 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:6 appleColor:@"Red"];
-         _apple1.Number = 7;
-         _apple2.Number = 8;
-         _apple3.Number = 1;
-         _apple4.Number = 2;
-         _apple5.Number = 3;
-         _apple6.Number = 4;
-         _apple7.Number = 5;
-         _apple8.Number = 6;
-         break;
-      }
-      case 7:
-      {
-         [self spawnNewApple:_apple1 appleNumber:8 appleColor:@"Red"];
          [self spawnNewApple:_apple2 appleNumber:1 appleColor:@"Red"];
          [self spawnNewApple:_apple3 appleNumber:2 appleColor:@"Red"];
          [self spawnNewApple:_apple4 appleNumber:3 appleColor:@"Red"];
          [self spawnNewApple:_apple5 appleNumber:4 appleColor:@"Red"];
          [self spawnNewApple:_apple6 appleNumber:5 appleColor:@"Red"];
-         [self spawnNewApple:_apple7 appleNumber:6 appleColor:@"Red"];
-         [self spawnNewApple:_apple8 appleNumber:7 appleColor:@"Red"];
-         _apple1.Number = 8;
+//         [self spawnNewApple:_apple7 appleNumber:4 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:5 appleColor:@"Red"];
+         _apple1.Number = 6;
          _apple2.Number = 1;
          _apple3.Number = 2;
          _apple4.Number = 3;
          _apple5.Number = 4;
          _apple6.Number = 5;
-         _apple7.Number = 6;
-         _apple8.Number = 7;
+//         _apple7.Number = 4;
+//         _apple8.Number = 5;
          break;
       }
+//      case 6:
+//      {
+//         [self spawnNewApple:_apple1 appleNumber:7 appleColor:@"Red"];
+//         [self spawnNewApple:_apple2 appleNumber:8 appleColor:@"Red"];
+//         [self spawnNewApple:_apple3 appleNumber:1 appleColor:@"Red"];
+//         [self spawnNewApple:_apple4 appleNumber:2 appleColor:@"Red"];
+//         [self spawnNewApple:_apple5 appleNumber:3 appleColor:@"Red"];
+//         [self spawnNewApple:_apple6 appleNumber:4 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:5 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:6 appleColor:@"Red"];
+//         _apple1.Number = 7;
+//         _apple2.Number = 8;
+//         _apple3.Number = 1;
+//         _apple4.Number = 2;
+//         _apple5.Number = 3;
+//         _apple6.Number = 4;
+//         _apple7.Number = 5;
+//         _apple8.Number = 6;
+//         break;
+//      }
+//      case 7:
+//      {
+//         [self spawnNewApple:_apple1 appleNumber:8 appleColor:@"Red"];
+//         [self spawnNewApple:_apple2 appleNumber:1 appleColor:@"Red"];
+//         [self spawnNewApple:_apple3 appleNumber:2 appleColor:@"Red"];
+//         [self spawnNewApple:_apple4 appleNumber:3 appleColor:@"Red"];
+//         [self spawnNewApple:_apple5 appleNumber:4 appleColor:@"Red"];
+//         [self spawnNewApple:_apple6 appleNumber:5 appleColor:@"Red"];
+//         [self spawnNewApple:_apple7 appleNumber:6 appleColor:@"Red"];
+//         [self spawnNewApple:_apple8 appleNumber:7 appleColor:@"Red"];
+//         _apple1.Number = 8;
+//         _apple2.Number = 1;
+//         _apple3.Number = 2;
+//         _apple4.Number = 3;
+//         _apple5.Number = 4;
+//         _apple6.Number = 5;
+//         _apple7.Number = 6;
+//         _apple8.Number = 7;
+//         break;
+//      }
       default:
          break;
    }
@@ -278,8 +278,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _apple4.physicsBody.collisionType = @"apple4";
    _apple5.physicsBody.collisionType = @"apple5";
    _apple6.physicsBody.collisionType = @"apple6";
-   _apple7.physicsBody.collisionType = @"apple7";
-   _apple8.physicsBody.collisionType = @"apple8";
+//   _apple7.physicsBody.collisionType = @"apple7";
+//   _apple8.physicsBody.collisionType = @"apple8";
    
    _spider1.physicsBody.collisionType =@"spider1";
 
@@ -457,8 +457,8 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
       _apple4.Time += delta/2;
       _apple5.Time += delta/2;
       _apple6.Time += delta/2;
-      _apple7.Time += delta/2;
-      _apple8.Time += delta/2;
+//      _apple7.Time += delta/2;
+//      _apple8.Time += delta/2;
       _spider1.Time += delta/2;
       
       CGPoint point = [panned locationInView:[CCDirector sharedDirector].view];
@@ -546,26 +546,26 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
             _apple6.SoundPlayed = true;
          }
       }
-      if(_apple7.Time > 7 && !_apple7.Dropped)
-      {
-         [self positionApple:_apple7];
-         if(!_apple7.SoundPlayed)
-         {
-            [dropSound play];
-            _apple7.SoundPlayed = true;
-         }
-      }
-      if(_apple8.Time > 8 && !_apple8.Dropped)
-      {
-         [self positionApple:_apple8];
-         if(!_apple8.SoundPlayed)
-         {
-            [dropSound play];
-            _apple8.SoundPlayed = true;
-         }
-      }
+//      if(_apple7.Time > 7 && !_apple7.Dropped)
+//      {
+//         [self positionApple:_apple7];
+//         if(!_apple7.SoundPlayed)
+//         {
+//            [dropSound play];
+//            _apple7.SoundPlayed = true;
+//         }
+//      }
+//      if(_apple8.Time > 8 && !_apple8.Dropped)
+//      {
+//         [self positionApple:_apple8];
+//         if(!_apple8.SoundPlayed)
+//         {
+//            [dropSound play];
+//            _apple8.SoundPlayed = true;
+//         }
+//      }
       
-      if(_points > 0 && _points % 8 == 0)
+      if(_points > 0 && _points % 15 == 0)
       {
          _spider1.Dropped = FALSE;
          [self spawnNewSpider:_spider1];
@@ -651,11 +651,11 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    }
    else if([_apple.Color  isEqual: @"Yellow"])
    {
-      _apple.position = ccp(_apple.position.x, _apple.position.y - (_yAccelSpeed+2));
+      _apple.position = ccp(_apple.position.x, _apple.position.y - (_yAccelSpeed+1));
    }
    else if([_apple.Color  isEqual: @"Green"])
    {
-      _apple.position = ccp(_apple.position.x, _apple.position.y - (_yAccelSpeed+4));
+      _apple.position = ccp(_apple.position.x, _apple.position.y - (_yAccelSpeed+2));
    }
 }
 
@@ -688,24 +688,24 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
          _apple.position = ccp(width/1.75,height/1.37);
           // 1 goes to 4
          break;
+//      case 1:
+//         _apple.position = ccp(width/20.0,height/1.56);
+//         break;
       case 2:
-         _apple.position = ccp(width/20.0,height/1.56);
-         break;
-      case 3:
          _apple.position = ccp(width/1.45,height/1.75);
          break;
-      case 4:
+      case 3:
           _apple.position = ccp(width/3.125,height/1.43);
          break;
-      case 5:
+      case 4:
          _apple.position = ccp(width/1.23,height/1.23);
          break;
-      case 6:
+      case 5:
           _apple.position = ccp(width/2.22,height/1.17);
          break;
-      case 7:
-         _apple.position = ccp(width/1.05,height/1.52);
-         break;
+//      case 7:
+//         _apple.position = ccp(width/1.05,height/1.52);
+//         break;
       default:
          break;
    }
@@ -748,11 +748,11 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 - (void)selectApple:(Apple *)_apple
 {
-   if(_points % 3 == 0)
+   if(_points % 10 == 0)
    {
       [self spawnNewApple:_apple appleNumber:_apple.Number appleColor:@"Yellow"];
    }
-   else if (_points % 4 == 0)
+   else if (_points % 20 == 0)
    {
       [self spawnNewApple:_apple appleNumber:_apple.Number appleColor:@"Green"];
    }
@@ -836,7 +836,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    _apple6.Time = 0;
    _apple6.SoundPlayed = FALSE;
    _apple6.Dropped = TRUE;
-   _apple7.Dropped = FALSE;
+   _apple1.Dropped = FALSE;//was apple7
    apple6.visible = NO;
    _points++;
    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
@@ -845,31 +845,31 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(Apple *)apple7 {
-   _apple7.Time = 0;
-   _apple7.SoundPlayed = FALSE;
-   _apple7.Dropped = TRUE;
-   _apple8.Dropped = FALSE;
-   apple7.visible = NO;
-   _points++;
-   _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [playSound play];
-   [self selectApple:_apple7];
-   return TRUE;
-}
-
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(Apple *)apple8 {
-   _apple8.Time = 0;
-   _apple8.SoundPlayed = FALSE;
-   _apple8.Dropped = TRUE;
-   _apple1.Dropped = FALSE;
-   apple8.visible = NO;
-   _points++;
-   _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
-   [playSound play];
-   [self selectApple:_apple8];
-   return TRUE;
-}
+//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple7:(Apple *)apple7 {
+//   _apple7.Time = 0;
+//   _apple7.SoundPlayed = FALSE;
+//   _apple7.Dropped = TRUE;
+//   _apple8.Dropped = FALSE;
+//   apple7.visible = NO;
+//   _points++;
+//   _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+//   [playSound play];
+//   [self selectApple:_apple7];
+//   return TRUE;
+//}
+//
+//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero apple8:(Apple *)apple8 {
+//   _apple8.Time = 0;
+//   _apple8.SoundPlayed = FALSE;
+//   _apple8.Dropped = TRUE;
+//   _apple1.Dropped = FALSE;
+//   apple8.visible = NO;
+//   _points++;
+//   _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+//   [playSound play];
+//   [self selectApple:_apple8];
+//   return TRUE;
+//}
 
 - (void)appleCollisionEffect:(Apple *)_apple
 {
@@ -955,19 +955,19 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
    return TRUE;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple7:(Apple *)apple7 level:(CCNode *)level {
-   [gameOverSound play];
-   [self appleCollisionEffect:_apple7];
-   [self gameOver];
-   return TRUE;
-}
-
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple8:(Apple *)apple8 level:(CCNode *)level {
-   [gameOverSound play];
-   [self appleCollisionEffect:_apple8];
-   [self gameOver];
-   return TRUE;
-}
+//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple7:(Apple *)apple7 level:(CCNode *)level {
+//   [gameOverSound play];
+//   [self appleCollisionEffect:_apple7];
+//   [self gameOver];
+//   return TRUE;
+//}
+//
+//-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair apple8:(Apple *)apple8 level:(CCNode *)level {
+//   [gameOverSound play];
+//   [self appleCollisionEffect:_apple8];
+//   [self gameOver];
+//   return TRUE;
+//}
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero goal:(CCNode *)goal {
     [goal removeFromParent];
